@@ -15,18 +15,20 @@ app.use(cookieParser());
 
 app.use('/', (req, res, next) => {
 	console.log(req.cookies)
-	console.log(req.headers)
-	if (!req.headers['cookie']) {
+	if (!req.cookies['audience_tracking_id']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
 		const uniqueID = uuidv4();
-		res.setHeader('Set-Cookie', [`id=${uniqueID}`, `contentFocus=${randomProductName()}`]);
+		res.setHeader('Set-Cookie', [`audience_tracking_id=${uniqueID}`, `contentFocus=${randomProductName()}`]);
 	}
-	console.log("Logging Response Headers.")
-	console.log(res.getHeaders())
+	/*
+		console.log("Logging Response Headers.")
+		console.log(res.getHeaders())
+	*/
 	next();
 });
 
 app.use(express.static(path.join(__dirname, 'client/build')));
+
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname + '/client/build/index.html'))
 });
