@@ -26,6 +26,16 @@ app.use((req, res) => {
 })
 
 app.get('*', (req, res) => {
+	console.log('Checking if user has sent us a cookie.')
+	console.log('Logging Request Headers.')
+	console.log(req.headers)
+	if (!req.headers['Cookie']) {
+		console.log('Processed Request - User Does Not Have Cookie.')
+		const uniqueID = uuid4();
+		res.setHeader('Set-Cookie', [`id=${uniqueID}`, `contentFocus=${randomProductName()}`]);
+	}
+	console.log("Logging Response Headers.")
+	console.log(res.headers)
 	res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 
