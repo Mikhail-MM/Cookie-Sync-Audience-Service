@@ -14,7 +14,7 @@ const randomProductName = () => {
 
 app.use(cookieParser());
 
-app.use('/dist', express.static(path.join(__dirname, 'client/build')));
+app.use('/', express.static(path.join(__dirname, 'client/build')));
 
 app.use('/', (req, res, next) => {
 	console.log(req.cookies)
