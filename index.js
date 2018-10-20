@@ -11,8 +11,6 @@ const randomProductName = () => {
 	return products[Math.floor(Math.random() * (products.length - 0)) + 0]
 }
 
-app.use(express.static(path.join(__dirname, 'client/build')));
-
 app.use(cookieParser());
 
 app.use((req, res, next) => {
@@ -26,10 +24,11 @@ app.use((req, res, next) => {
 		res.setHeader('Set-Cookie', [`id=${uniqueID}`, `contentFocus=${randomProductName()}`]);
 	}
 	console.log("Logging Response Headers.")
-	console.log(res.headers)
+	console.log(res.getHeaders())
 	next();
 });
 
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname + '/client/build/index.html'))
 });
@@ -39,9 +38,8 @@ app.use(function(err, req, res, next) {
 	res.status(err.status || 500).send();
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6000;
 
 app.listen(port);
 
 console.log(`Audience Service Host listening on ${port}`);
-console.log("Updates hydrated to heroku")
