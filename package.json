@@ -1,0 +1,17 @@
+{
+  "name": "cookie-sync-audience-service",
+  "version": "1.0.0",
+  "description": "Audience Service Host",
+  "main": "index.js",
+  "author": "Mikhail Maslyuk",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^4.16.4",
+    "uuid": "^3.3.2"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && yarn && yarn run build"
+  }
+}
