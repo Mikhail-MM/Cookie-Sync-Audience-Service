@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const uuidv4 = require('uuid/v4');
 const cookieParser = require('cookie-parser')
+const serveStatic = require('serve-static')
 
 const app = express();
 
@@ -12,6 +13,8 @@ const randomProductName = () => {
 }
 
 app.use(cookieParser());
+
+app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.use('/', (req, res, next) => {
 	console.log(req.cookies)
@@ -40,7 +43,6 @@ app.use(function(err, req, res, next) {
 	res.status(err.status || 500).send();
 });
 
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 const port = process.env.PORT || 6000;
 
