@@ -14,7 +14,6 @@ const randomProductName = () => {
 
 app.use(cookieParser());
 
-app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.use('/', (req, res, next) => {
 	console.log(req.cookies)
@@ -36,7 +35,7 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname + '/client/build/index.html'))
 });
 
-
+app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.use(function(err, req, res, next) {
 	console.log(err)
