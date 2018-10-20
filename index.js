@@ -13,12 +13,10 @@ const randomProductName = () => {
 
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-	console.log('Checking if user has sent us a cookie from global middleware.')
-	console.log('Logging Request Headers.')
-	console.log(req.headers)
+app.use('/', (req, res, next) => {
 	console.log(req.cookies)
-	if (!req.headers['Cookie']) {
+	console.log(req.headers)
+	if (!req.headers['cookie']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
 		const uniqueID = uuidv4();
 		res.setHeader('Set-Cookie', [`id=${uniqueID}`, `contentFocus=${randomProductName()}`]);
