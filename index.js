@@ -12,7 +12,7 @@ const randomProductName = () => {
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use('/', (req, res) => {
+app.use((req, res) => {
 	console.log('Checking if user has sent us a cookie.')
 	console.log('Logging Request Headers.')
 	console.log(req.headers)
@@ -23,7 +23,6 @@ app.use('/', (req, res) => {
 	}
 	console.log("Logging Response Headers.")
 	console.log(res.headers)
-	res.send("Response Set")
 })
 
 app.get('*', (req, res) => {
