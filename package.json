@@ -7,6 +7,7 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "uuid": "^3.3.2"
   },

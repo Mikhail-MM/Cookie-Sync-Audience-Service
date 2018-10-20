@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const uuidv4 = require('uuid/v4');
+const cookieParser = require('cookie-parser')
 
 const app = express();
 
@@ -12,10 +13,13 @@ const randomProductName = () => {
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use((req, res) => {
+app.use(cookieParser());
+
+app.use((req, res, next) => {
 	console.log('Checking if user has sent us a cookie from global middleware.')
 	console.log('Logging Request Headers.')
 	console.log(req.headers)
+	console.log(req.cookies)
 	if (!req.headers['Cookie']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
 		const uniqueID = uuidv4();
@@ -23,21 +27,12 @@ app.use((req, res) => {
 	}
 	console.log("Logging Response Headers.")
 	console.log(res.headers)
-})
+	next();
+});
 
 app.get('*', (req, res) => {
-	console.log('Checking if user has sent us a cookie from catch-all handler.')
-	console.log('Logging Request Headers.')
-	console.log(req.headers)
-	if (!req.headers['Cookie']) {
-		console.log('Processed Request - User Does Not Have Cookie.')
-		const uniqueID = uuidv4();
-		res.setHeader('Set-Cookie', [`id=${uniqueID}`, `contentFocus=${randomProductName()}`]);
-	}
-	console.log("Logging Response Headers.")
-	console.log(res.headers)
 	res.sendFile(path.join(__dirname + '/client/build/index.html'))
-})
+});
 
 app.use(function(err, req, res, next) {
 	console.log(err)
@@ -46,6 +41,6 @@ app.use(function(err, req, res, next) {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port)
+app.listen(port);
 
-console.log(`Audience Service Host listening on ${port}`)
+console.log(`Audience Service Host listening on ${port}`);
