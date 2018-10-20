@@ -18,6 +18,7 @@ app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.use('/', (req, res, next) => {
 	console.log(req.cookies)
+	console.log("Middleware is HIT!")
 	if (!req.cookies['audience_tracking_id']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
 		const uniqueID = uuidv4();
