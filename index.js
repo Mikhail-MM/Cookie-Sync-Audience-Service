@@ -44,3 +44,4 @@ const port = process.env.PORT || 5000;
 app.listen(port);
 
 console.log(`Audience Service Host listening on ${port}`);
+console.log("Updates hydrated to heroku")
