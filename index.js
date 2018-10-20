@@ -27,17 +27,20 @@ app.use('/', (req, res, next) => {
 	next();
 });
 
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('*', (req, res) => {
 	console.log("SendFile Sent")
 	res.sendFile(path.join(__dirname + '/client/build/index.html'))
 });
 
+
+
 app.use(function(err, req, res, next) {
 	console.log(err)
 	res.status(err.status || 500).send();
 });
+
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 const port = process.env.PORT || 6000;
 
