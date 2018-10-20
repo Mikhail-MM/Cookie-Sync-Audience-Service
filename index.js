@@ -4,7 +4,6 @@ const uuidv4 = require('uuid/v4');
 const cookieParser = require('cookie-parser')
 
 const app = express();
-const router = express.Router();
 
 const products = ['Shoes', 'Cars', 'Jewelery', "Men's Clothing", "Women's Clothing", 'Education', 'Consulting']
 
@@ -13,8 +12,6 @@ const randomProductName = () => {
 }
 
 app.use(cookieParser());
-
-app.use(express.static(__dirname + 'client/build'));
 
 app.use('/', (req, res, next) => {
 	console.log(req.cookies)
@@ -30,14 +27,12 @@ app.use('/', (req, res, next) => {
 	next();
 });
 
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-router.route('*')
-	.get((req, res) => {
-  		console.log("SendFile Sent")
-		res.sendFile(path.join(__dirname + '/client/build/index.html'))
-	});
-
-app.use('/', router);
+app.get('*', (req, res) => {
+	console.log("SendFile Sent")
+	res.sendFile(path.join(__dirname + '/client/build/index.html'))
+});
 
 app.use(function(err, req, res, next) {
 	console.log(err)
