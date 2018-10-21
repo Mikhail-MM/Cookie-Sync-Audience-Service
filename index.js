@@ -14,7 +14,6 @@ const randomProductName = () => {
 
 app.use(cookieParser());
 
-app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.use('/', (req, res, next) => {
 	console.log("Logging IP.")
@@ -33,6 +32,7 @@ app.use('/', (req, res, next) => {
 	next();
 });
 
+app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.get('*', (req, res) => {
 	console.log("SendFile Sent")
