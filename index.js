@@ -19,7 +19,7 @@ app.use(serveStatic(path.join(__dirname, 'client/build')))
 app.use('/', (req, res, next) => {
 	console.log("Logging IP.")
 	console.log("REQ.IP :: ", req.ip)
-	console.log("REQUEST.CONNECTION.REMOTEADDRESS", request.connection.remoteAddress)
+	console.log("REQUEST.CONNECTION.REMOTEADDRESS", req.connection.remoteAddress)
 	console.log("LOGGING COOKIES: ", req.cookies)
 	if (!req.cookies['audience_tracking_id']) {
 		console.log('Processed Request - User Does Not Have Cookie.')
