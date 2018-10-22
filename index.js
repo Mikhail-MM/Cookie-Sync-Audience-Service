@@ -14,6 +14,12 @@ const randomProductName = () => {
 
 app.use(cookieParser());
 
+app.use('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, partner_1_tracking_id, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
+  next();
+});
 
 app.use('/', (req, res, next) => {
 	console.log("Logging FORWARDED-FOR HEADERS", req.headers["x-forwarded-for"])
@@ -33,13 +39,14 @@ app.use('/', (req, res, next) => {
 	next();
 });
 
-app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.get('*', (req, res) => {
 	console.log("SendFile Sent")
 	res.sendFile(path.join(__dirname + '/client/build/index.html'))
 });
 
+
+app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.use(function(err, req, res, next) {
 	console.log(err)
