@@ -7,7 +7,10 @@ class App extends Component {
     return fetch('https://cookie-sync-partner-1.herokuapp.com/public/cookieBait.js', {
       method: 'GET',
       mode: 'cors',
-      credentials: 'include'
+      credentials: 'include',
+      headers: {
+        'Origin': 'https://cookie-sync-audience-service.herokuapp.com/',
+      }
     })
     .then(res => res.ok ? res.text() : Promise.reject(res.statusText))
     .then(text => console.log(text))
