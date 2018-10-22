@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import { cookieParser } from './utils/cookies.js'
 import logo from './logo.svg';
 import './App.css';
 
+
 class App extends Component {
+  state = {
+    interestArray: ['Cooking', 'Luxury', 'Style', 'Weddings'],
+    activeInterest: this.findActiveInterestFromCookies();
+  }
+
   componentDidMount() {
     return fetch('https://cookie-sync-partner-1.herokuapp.com/public/cookieBait.js', {
       method: 'GET',
@@ -14,8 +21,15 @@ class App extends Component {
       return res.ok ? res.text() : Promise.reject(res.statusText)
     })
     .then(text => console.log(text))
-
   }
+
+  findActiveInterestFromCookies = () => {
+    const cookies = document.cookie;
+    console.log(cookieParser.getItem('contentFocus'))
+    const interest = cookieParser.getItem('contentFocus')
+      return interest
+  }
+
   render() {
     return (
       <div className="App">
