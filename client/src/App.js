@@ -9,7 +9,10 @@ class App extends Component {
       mode: 'cors',
       credentials: 'include',
     })
-    .then(res => res.ok ? res.text() : Promise.reject(res.statusText))
+    .then(res => {
+      console.log(res)
+      return res.ok ? res.text() : Promise.reject(res.statusText)
+    })
     .then(text => console.log(text))
 
   }
