@@ -4,16 +4,13 @@ import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://cookie-sync-partner-1.herokuapp.com/public/cookieBait.js', true);
-    xhr.setRequestHeader("Access-Control-Allow-Origin", "https://cookie-sync-audience-service.herokuapp.com/")
-    xhr.withCredentials = true;
-    xhr.onreadystatechange = () => {
-      if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-          console.log(this)
-        }
-      } 
-    xhr.send(null);
+    return fetch('https://cookie-sync-partner-1.herokuapp.com/public/cookieBait.js', {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include'
+    })
+    .then(res => res.ok ? res.text() : Promise.reject(response.statusText))
+    .then(text => console.log(text))
 
   }
   render() {
