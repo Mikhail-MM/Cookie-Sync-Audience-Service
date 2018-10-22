@@ -7,20 +7,13 @@ import './App.css';
 class App extends Component {
   state = {
     interestArray: ['Cooking', 'Luxury', 'Style', 'Weddings'],
-    activeInterest: this.findActiveInterestFromCookies(),
+    activeInterest: null,
   }
 
   componentDidMount() {
-    return fetch('https://cookie-sync-partner-1.herokuapp.com/public/cookieBait.js', {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include',
+    this.setState({
+      activeInterest: findActiveInterestFromCookies()
     })
-    .then(res => {
-      console.log(res)
-      return res.ok ? res.text() : Promise.reject(res.statusText)
-    })
-    .then(text => console.log(text))
   }
 
   findActiveInterestFromCookies = () => {
