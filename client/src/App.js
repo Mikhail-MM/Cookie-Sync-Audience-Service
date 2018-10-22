@@ -8,9 +8,6 @@ class App extends Component {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
-      headers: {
-        'Origin': 'https://cookie-sync-audience-service.herokuapp.com/',
-      }
     })
     .then(res => res.ok ? res.text() : Promise.reject(res.statusText))
     .then(text => console.log(text))
