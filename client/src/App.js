@@ -7,7 +7,7 @@ import './App.css';
 class App extends Component {
   state = {
     interestArray: ['Cooking', 'Luxury', 'Style', 'Weddings'],
-    activeInterest: this.findActiveInterestFromCookies();
+    activeInterest: this.findActiveInterestFromCookies(),
   }
 
   componentDidMount() {
