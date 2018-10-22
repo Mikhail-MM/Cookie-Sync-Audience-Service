@@ -12,7 +12,7 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({
-      activeInterest: findActiveInterestFromCookies()
+      activeInterest: this.findActiveInterestFromCookies()
     })
   }
 
