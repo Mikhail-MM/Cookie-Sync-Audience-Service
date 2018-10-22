@@ -39,6 +39,7 @@ app.use('/', (req, res, next) => {
 	next();
 });
 
+app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.get('*', (req, res) => {
 	console.log("SendFile Sent")
@@ -46,7 +47,6 @@ app.get('*', (req, res) => {
 });
 
 
-app.use(serveStatic(path.join(__dirname, 'client/build')))
 
 app.use(function(err, req, res, next) {
 	console.log(err)
