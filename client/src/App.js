@@ -3,6 +3,18 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://cookie-sync-partner-1.herokuapp.com/public/cookieBait.js', true);
+    xhr.withCredentials = true;
+    xhr.onreadystatechange = () => {
+      if(this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+          console.log(this)
+        }
+      } 
+    xhr.send(null);
+
+  }
   render() {
     return (
       <div className="App">
