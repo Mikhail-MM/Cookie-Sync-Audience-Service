@@ -48,3 +48,11 @@ img { object-fit: cover; height: 100%; width: 100%;}
 .interest-image {
   border-radius: 5px;
 }
+
+.active-interest {
+  border: 6px solid red;
+}
+
+.active-interest:hover {
+  border: 6px solid red;
+}

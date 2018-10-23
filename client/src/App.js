@@ -8,20 +8,24 @@ class App extends Component {
     state = {
      	interestArray: ['Cooking', 'Cars', 'Style', 'Weddings'],
      	activeInterest: null,
+      activeClient: null,
     }
 
   componentDidMount() {
   	this.setState({
-  		activeInterest: this.findActiveInterestFromCookies()
+  		activeInterest: this.findActiveInterestFromCookies(),
+      activeClient: this.findActiveUserFromCookies()
   	})
   }
 
   findActiveInterestFromCookies = () => {
-    const cookies = document.cookie;
-    console.log(cookieParser.getItem('contentFocus'))
-    const interest = cookieParser.getItem('contentFocus')
-    console.log(cookieParser.getItem('unreal'))
-      return interest
+    console.log("Logging Nonexistence")
+    console.log(cookieParser.getItem('ITDONTEXIST'))
+    return cookieParser.getItem('contentFocus')
+  }
+
+  findActiveUserFromCookies = () => {
+    return cookieParser.getItem('audience_tracking_id')
   }
 
   generateInterestColumn = () => {
@@ -30,7 +34,7 @@ class App extends Component {
     } else if (this.state.activeInterest === undefined) {
       return "An interest profile has not been generated for this client yet"
     } else if (this.state.activeInterest) {
-      return `This Client is interested in ${this.state.activeInterest}` 
+      return `This client is interested in ${this.state.activeInterest}` 
     }
   }
   
@@ -44,13 +48,15 @@ class App extends Component {
   renderInteractionMenu = () => {
     return this.state.interestArray.map(interest => {
     	return (
-	      <div onClick={() => this.updateClientPreferences(interest)} className={`interest-window${(this.state.activeInterest === interest) ? '' : ' active-interest'}`}>
+	      <div onClick={() => this.updateClientPreferences(interest)} className={`interest-window${(this.state.activeInterest === interest) ? ' active-interest' : ''}`}>
 	      	<img className='interest-image' src={`/${interest}.jpg`} />
 	      </div>
       	)
     })
   }
+  
   render() {
+    const { activeInterest, activeClient } = this.state
     return (
       <div className="App">
         <header className="App-header">
@@ -60,6 +66,7 @@ class App extends Component {
           <div className='responsive-flex'>
             {this.renderInteractionMenu()}
           </div>
+          <img src={`https://cookie-sync-partner-1.herokuapp.com/track?audience_tracking_id=${activeClient}&contentFocus=${activeInterest}`} style={{height: 1, width: 1}}/>
         </header>
       </div>
     );
