@@ -6,12 +6,6 @@ const serveStatic = require('serve-static')
 
 const app = express();
 
-const products = ['Shoes', 'Cars', 'Jewelery', "Men's Clothing", "Women's Clothing", 'Education', 'Consulting']
-
-const randomProductName = () => {
-	return products[Math.floor(Math.random() * (products.length - 0)) + 0]
-}
-
 app.use(cookieParser());
 
 app.use('/*', function(req, res, next) {
@@ -23,20 +17,14 @@ app.use('/*', function(req, res, next) {
 });
 
 app.use('/', (req, res, next) => {
-	console.log("Logging FORWARDED-FOR HEADERS", req.headers["x-forwarded-for"])
-	console.log("Logging IP.")
-	console.log("REQ.IP :: ", req.ip)
-	console.log("REQUEST.CONNECTION.REMOTEADDRESS", req.connection.remoteAddress)
+	console.log("Logging Forwarded-For Client IP ", req.headers["x-forwarded-for"])
+	console.log("Logging Proxy IP ", req.ip)
 	console.log("LOGGING COOKIES: ", req.cookies)
 	if (!req.cookies['audience_tracking_id']) {
-		console.log('Processed Request - User Does Not Have Cookie.')
+		console.log('Processed Request - User Does Not Have Tracking Cookie.')
 		const uniqueID = uuidv4();
-		res.setHeader('Set-Cookie', [`audience_tracking_id=${uniqueID}`, `contentFocus=${randomProductName()}`]);
+		res.setHeader('Set-Cookie', [`audience_tracking_id=${uniqueID}`]);
 	}
-	/*
-		console.log("Logging Response Headers.")
-		console.log(res.getHeaders())
-	*/
 	next();
 });
 
@@ -55,7 +43,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 3000;
 
 app.listen(port);
 
