@@ -6,7 +6,7 @@ import './App.css';
 
 class App extends Component {
     state = {
-     	interestArray: ['Cooking', 'Cars', 'Style', 'Weddings'],
+     	interestArray: ['Cooking', 'Cars', 'Stylish Clothing', 'Weddings'],
      	activeInterest: null,
       activeClient: null,
     }
@@ -54,7 +54,7 @@ class App extends Component {
       	)
     })
   }
-  
+
   render() {
     const { activeInterest, activeClient } = this.state
     return (
