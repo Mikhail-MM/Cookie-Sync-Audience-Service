@@ -5,19 +5,7 @@ import './App.css';
 
 
 class App extends Component {
-    state = {
-     	interestArray: ['Cooking', 'Cars', 'Stylish Clothing', 'Weddings'],
-     	activeInterest: null,
-      activeClient: null,
-    }
-
-  componentDidMount() {
-  	this.setState({
-  		activeInterest: this.findActiveInterestFromCookies(),
-      activeClient: this.findActiveUserFromCookies()
-  	})
-  }
-
+  
   findActiveInterestFromCookies = () => {
     console.log("Logging Nonexistence")
     console.log(cookieParser.getItem('ITDONTEXIST'))
@@ -27,6 +15,13 @@ class App extends Component {
   findActiveUserFromCookies = () => {
     return cookieParser.getItem('audience_tracking_id')
   }
+  
+  state = {
+   	interestArray: ['Cooking', 'Cars', 'Stylish Clothing', 'Weddings'],
+   	activeInterest: this.findActiveInterestFromCookies(),
+    activeClient: this.findActiveUserFromCookies(),
+  }
+
 
   generateInterestColumn = () => {
     if (this.state.activeInterest === null) {
