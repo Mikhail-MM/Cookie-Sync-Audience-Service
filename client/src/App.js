@@ -61,7 +61,12 @@ class App extends Component {
           <div className='responsive-flex'>
             {this.renderInteractionMenu()}
           </div>
-          <img src={`https://cookie-sync-partner-1.herokuapp.com/track?audience_tracking_id=${activeClient}&contentFocus=${activeInterest}`} style={{height: 1, width: 1}}/>
+          <img src={(activeClient && activeInterest) ? 
+            `https://cookie-sync-partner-1.herokuapp.com/track?audience_tracking_id=${activeClient}&contentFocus=${activeInterest}` 
+              : (activeClient && !activeInterest) ?
+            `https://cookie-sync-partner-1.herokuapp.com/track?audience_tracking_id=${activeClient}` 
+              : null
+            } style={{height: 1, width: 1}}/>
         </header>
       </div>
     );
